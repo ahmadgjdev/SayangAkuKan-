@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamu sayang Aku?</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe6f2;
+            color: black;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+            transition: background-color 1s ease-in-out;
+            animation: changeBg 5s infinite alternate;
+            opacity: 0;
+            transform: scale(0.98);
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes changeBg {
+            0% { background-color: #ffe6f2; }
+            100% { background-color: #ffccdd; }
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 5vw;
+            background: linear-gradient(90deg, #ff69b4, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 3vw;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+            position: relative;
+            box-shadow: 0px 0px 15px rgba(255, 105, 180, 0.5);
+        }
+
+        #iya {
+            background: linear-gradient(90deg, #ff0000, #ff8c00);
+        }
+
+        #tidak {
+            background: linear-gradient(90deg, #1e90ff, #8a2be2);
+        }
+
+        #iya:hover, #tidak:hover {
+            transform: scale(1.2);
+            box-shadow: 0px 0px 25px rgba(255, 105, 180, 0.8);
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            display: none;
+            z-index: 10;
+            width: 80%;
+            max-width: 400px;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .popup.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .popup h2 {
+            font-size: 24px;
+            color: #ff69b4;
+            margin-bottom: 15px;
+        }
+
+        .popup p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .popup input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .popup button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background: linear-gradient(90deg, #ff69b4, #ff8c00);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            width: 100%;
+            max-width: 200px;
+            transition: transform 0.3s;
+        }
+
+        .popup button:hover {
+            transform: scale(1.1);
+        }
+
+        .image-container img {
+            width: 150px; /* Sesuaikan ukuran gambar */
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>
+        <div class="image-container">
+            <img src="1741359192478.png" alt="Gambar Sayang">
+        </div>
+        Kamuu sayangg akuu gaa??
+    </h1>
+    
+    <div class="button-container">
+        <button id="iya">Iya</button>
+        <button id="tidak">Tidak</button>
+    </div>
+
+    <div id="popup" class="popup">
+        <h2>Ihhhhh, akuuuu jugaaaa sayangggg kamuuuu 💞💞💞</h2>
+        <p>Kamu pasti inget no. HP ku kan? Isi dong 🥺</p>
+        <input type="tel" id="phoneNumber" placeholder="Masukkinn sayangg" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+        <button onclick="sendToWhatsApp()">Kirim</button>
+    </div>
+
+    <script>
+        const iyaButton = document.getElementById('iya');
+        const tidakButton = document.getElementById('tidak');
+        const popup = document.getElementById('popup');
+
+        let count = 0;
+        const texts = ["Jangannn donggg 💔", "Seriusss nihhh? 💔", "Kamuuu jahattt ❤️‍🩹", "Akuuu sedihhh nihhh ❤️‍🩹", "Kamu udah engga sayang aku lagi 💔"];
+
+        tidakButton.addEventListener('mouseover', () => {
+            moveAway();
+            tidakButton.innerText = texts[count % texts.length];
+            count++;
+        });
+
+        iyaButton.addEventListener('click', () => {
+            document.body.style.backgroundColor = "#ffe6e6";
+            popup.classList.add("show"); 
+            popup.style.display = "block";
+        });
+
+        function moveAway() {
+            const maxX = window.innerWidth - tidakButton.clientWidth - 40;
+            const maxY = window.innerHeight - tidakButton.clientHeight - 40;
+            let newX = Math.random() * maxX;
+            let newY = Math.random() * maxY;
+            tidakButton.style.position = "absolute";
+            tidakButton.style.left = `${newX}px`;
+            tidakButton.style.top = `${newY}px`;
+        }
+
+        function sendToWhatsApp() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            
+            if (phoneNumber.trim() === "" || phoneNumber.length < 10) {
+                alert("Masukkan nomor yang valid, sayangg! 🥺");
+                return;
+            }
+
+            const whatsappLink = `https://wa.me/${phoneNumber}`;
+            window.open(whatsappLink, '_blank');
+        }
+    </script>
+
+</body>
+</html>
